@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.crud'
 ]
 
 MIDDLEWARE = [
@@ -75,9 +76,17 @@ WSGI_APPLICATION = 'crudbasico.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'crudbasico',
+        'USER': 'sa',
+        'PASSWORD': '1940',
+        'HOST': 'localhost',
+        'PORT': '',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
 }
 
 
