@@ -74,18 +74,33 @@ WSGI_APPLICATION = 'crudbasico.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'crudbasico',
+#         'USER': 'sa',
+#         'PASSWORD': '1940',
+#         'HOST': 'CHAR\SQLSERVER',
+#         'PORT': '',
+
+#         # 'OPTIONS': {
+#         #     'driver' : '{Microsoft ODBC Driver 17 for SQL Server}'
+#         # },
+#     },
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'crudbasico',
         'USER': 'sa',
-        'PASSWORD': '1940',
-        'HOST': 'localhost',
+        'PASSWORD': 'E6gxvpoWa',
+        'HOST': '45.56.70.238',
         'PORT': '',
 
-        'OPTIONS': {
-            'driver': 'ODBC Driver 13 for SQL Server',
-        },
+        # 'OPTIONS': {
+        #     'driver' : '{Microsoft ODBC Driver 17 for SQL Server}'
+        # },
     },
 }
 
@@ -127,3 +142,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
