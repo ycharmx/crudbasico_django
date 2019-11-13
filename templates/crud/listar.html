@@ -3,13 +3,13 @@
 <body>
     Hola mundo
     <br>
-   
+    <button>Registrar</button>
     {% for persona in personas %}
     
         {{ persona.nombre }}
         {{ persona.a_materno }}
         {{ persona.a_paterno }}
-        
+        <a href="/editar/{{ persona.id }}">Editar</a>
         <br>
     {% endfor%}
     

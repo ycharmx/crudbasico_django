@@ -13,7 +13,7 @@ class Persona(models.Model):
     
     #metodo que retorna el contenido del objeto
     def __str__(self):
-        return self.nombre
+        return '{0} {1} {2}'.format(self.nombre,self.a_paterno,self.a_materno)
 
 
 # Create your models here.
