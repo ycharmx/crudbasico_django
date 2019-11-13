@@ -9,7 +9,7 @@ class Persona(models.Model):
     fecha_nacimiento = models.DateField('Fecha de nacimiento')
     fecha_registro = models.DateTimeField('Fecha de registro en el servidor')
 
-    #objects = models.Manager()
+    objects = models.Manager()
     
     #metodo que retorna el contenido del objeto
     def __str__(self):
