@@ -9,7 +9,8 @@ def inicio(req):
 
 #método para listar las personas
 def listar(req):
-    lista_personas = Persona.objects.order_by("-fecha_registro")
+    lista_personas = Persona.object.order_by("-fecha_registro")
     resultado = ','.join([p.nombre for p in lista_personas])
     return HttpResponse(resultado)
+    
 # Create your views here.
