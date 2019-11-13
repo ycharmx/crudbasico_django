@@ -89,17 +89,17 @@ WSGI_APPLICATION = 'crudbasico.wsgi.application'
 #     },
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'crudbasico',
         'USER': 'sa',
-        'PASSWORD': 'E6gxvpoWa',
+        'PASSWORD': 'E6gxvpoW',
         'HOST': '45.56.70.238',
         'PORT': '',
-
         # 'OPTIONS': {
-        #     'driver' : '{Microsoft ODBC Driver 17 for SQL Server}'
+        #     'driver' : 'Microsoft ODBC Driver 17 for SQL Server'
         # },
     },
 }
