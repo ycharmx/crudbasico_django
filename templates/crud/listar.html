@@ -1,17 +1,52 @@
-<html>
-<head></head>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD Básico</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+</head>
 <body>
-    Hola mundo
-    <br>
-    <button>Registrar</button>
-    {% for persona in personas %}
+        {% include 'appbar.html' %}  
+
     
-        {{ persona.nombre }}
-        {{ persona.a_materno }}
-        {{ persona.a_paterno }}
-        <a href="/editar/{{ persona.id }}">Editar</a>
-        <br>
-    {% endfor%}
-    
+        <div class="container pt-5">
+                <a href="{% url 'crud:agregar' %}">Agregar</a>
+                <h2>Personas</h2>
+                <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido Paterno</th>
+                            <th scope="col">Apellido Materno</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for persona in personas %}
+                            <tr>
+
+                                <th scope="row">{{ persona.nombre }}</th>
+                                <td>{{ persona.a_materno }}</td>
+                                <td>{{ persona.a_paterno }}</td>
+                                <td><a href="{% url 'crud:editar' persona.id %}">Editar</a></td>
+                                <!-- <a href="/eliminar/{{ persona.id }}">Eliminar</a> -->
+                            
+                            </tr>
+                            {% endfor%}
+                        
+                        </tbody>
+                    </table> 
+
+            
+        </div>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+
 </body>
 </html>

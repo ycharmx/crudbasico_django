@@ -2,12 +2,20 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import pip
 
+# def install(package):
+#     if hasattr(pip,'main'):
+#         pip.main(['install',package])
+#     else:
+#         pip._internal.main(['install',package])
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crudbasico.settings')
     try:
+        
         from django.core.management import execute_from_command_line
+
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "

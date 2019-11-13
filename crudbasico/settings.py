@@ -73,6 +73,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crudbasico.wsgi.application'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -145,4 +149,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
