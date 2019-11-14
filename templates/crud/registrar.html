@@ -13,12 +13,12 @@
 <body>
 
     {% include 'appbar.html' %}  
-    <div class="container pt-5">
-            Registrar persona
+    <div class="container">
+           <h3 class="mb-4">Registrar persona</h3>
             <form method="POST">
                 {% csrf_token %}
                 {{ form }}
-                <input type="submit" value="Registrar" class="btn btn-primary btn-sm">
+                <input type="submit" value="Registrar" class="btn btn-success btn-md mt-2 float-right">
             </form>
             <br>
             <a href="/">Regresar</a>
