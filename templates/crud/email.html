@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body >
+
+
+        <div class="row align-items-center h-100">
+                    <div class="container d-flex justify-content-center my-auto">
+      
+                            <div class="col-6 col-sm-12 col-md-12 mx-sm-0 px-sm-0 ">
+                               <h3>Ingrese su correo:</h3>
+                               <form method="POST">
+                                   {% csrf_token %}
+                                   {{ form }}
+                                   <input type="submit" value="Aceptar" class="btn btn-primary btn-md mt-2 float-right">
+                               </form>
+                            </div>
+                    </div>
+        </div>
+
+    <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script> -->
+</body>
+</html>

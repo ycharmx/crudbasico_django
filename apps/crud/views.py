@@ -1,9 +1,12 @@
 #Importamos la opcion para validar la existencia del objeto ==> get_object_or_404
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views import generic
 #importamos el modelo persona que se ha creado
 from .models import Persona
+
+#importamos las formas para renderizar los formularios
+from .forms import EmailForm, RegistroPersonaForm
 
 # def inicio(req):
 #     return HttpResponse("Hola mundo")
@@ -15,9 +18,22 @@ from .models import Persona
 #     context = {'personas' : lista_personas}
 #     return render(req,'crud/listar.html',context)
 
+def email(req):
+    if req.method == "POST":
+        form = EmailForm(req.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            # personas = Persona.objects.order_by("-fecha_registro")
+            # return render(req, 'crud/listar.html',{'email':email, 'personas':personas})
+            return HttpResponseRedirect('personas/')
+    else:
+        form = EmailForm()
+    return render(req,'crud/email.html', {'form':form})
+
 
 def crear(req):
-    return render(req,'crud/registrar.html')
+    form = RegistroPersonaForm()
+    return render(req,'crud/registrar.html',{'form':form})
 
 # def editar(req, id_persona):
 #     try:

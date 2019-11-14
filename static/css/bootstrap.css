@@ -11,6 +11,20 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+ /* CUSTOM */
+ /* CUSTOM */
+
+ .vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+ /* CUSTOM */
+ /* CUSTOM */
+
+
  @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,600");
  :root {
    --blue: #007bff;
@@ -55,6 +69,9 @@
    line-height: 1.15;
    -webkit-text-size-adjust: 100%;
    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+   height: 100%;
+   min-height: 100%;
+   overflow: auto;
  }
  
  article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
@@ -70,6 +87,8 @@
    color: #919aa1;
    text-align: left;
    background-color: #fff;
+   height: 100%;
+   overflow: auto;
  }
  
  [tabindex="-1"]:focus {
@@ -2147,7 +2166,7 @@
  }
  
  .form-text {
-   display: block;
+   display: flex;
    margin-top: 0.25rem;
  }
  
