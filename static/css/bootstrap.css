@@ -250,6 +250,7 @@
  }
  
  label {
+   color: #000;
    display: inline-block;
    margin-bottom: 0.5rem;
  }
@@ -2036,10 +2037,11 @@
    font-size: 0.875rem;
    font-weight: 400;
    line-height: 1.5;
-   color: #55595c;
-   background-color: #f7f7f9;
+   color: #333333;
+   background-color: #E8F0FE;
    background-clip: padding-box;
-   border: 0px solid #ced4da;
+   border: 0px solid #515253;
+   border-bottom: 2px solid #000;
    border-radius: 0;
    -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2060,12 +2062,12 @@
  }
  
  .form-control:focus {
-   color: #55595c;
-   background-color: #f7f7f9;
-   border-color: #5a5a5a;
+   color: #000000;
+   background-color: #a7a6a6;
+   /* border-color: #5a5a5a; */
    outline: 0;
-   -webkit-box-shadow: 0 0 0 0.2rem rgba(26, 26, 26, 0.25);
-           box-shadow: 0 0 0 0.2rem rgba(26, 26, 26, 0.25);
+   -webkit-box-shadow: 0 0 0 0.1rem rgba(189, 189, 189, 0.61);
+           box-shadow: 0 0 0 0.1rem rgba(189, 189, 189, 0.61);
  }
  
  .form-control::-webkit-input-placeholder {
@@ -2128,7 +2130,7 @@
    padding-bottom: 0.75rem;
    margin-bottom: 0;
    line-height: 1.5;
-   color: #919aa1;
+   color: #404041;
    background-color: transparent;
    border: solid transparent;
    border-width: 0px 0;
@@ -2199,7 +2201,7 @@
  }
  
  .form-check-input:disabled ~ .form-check-label {
-   color: #919aa1;
+   color: #000000;
  }
  
  .form-check-label {
@@ -4053,7 +4055,7 @@
    height: calc(1.5em + 1.5rem);
    padding: 0.75rem 1.5rem;
    line-height: 1.5;
-   color: #55595c;
+   color: #3d3d3d;
    content: "Browse";
    background-color: #eceeef;
    border-left: inherit;

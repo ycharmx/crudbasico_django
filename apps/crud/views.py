@@ -33,6 +33,21 @@ def email(req):
 
 def crear(req):
     form = RegistroPersonaForm()
+    if req.method == "POST":
+        form = RegistroPersonaForm(req.POST)
+        if form.is_valid():
+            persona = Persona()
+            persona.nombre = form.cleaned_data['nombre']
+            persona.a_materno = form.cleaned_data['a_materno']
+            persona.a_paterno = form.cleaned_data['a_paterno']
+            persona.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
+            persona.fecha_registro = form.cleaned_data['fecha_nacimiento']
+            persona.sexo = True
+            persona.save()
+            return HttpResponseRedirect('/personas/')
+        else:
+            return render (req,'crud/registrar.html',{'form':form})
+        
     return render(req,'crud/registrar.html',{'form':form})
 
 # def editar(req, id_persona):

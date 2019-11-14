@@ -12,3 +12,4 @@ class RegistroPersonaForm(forms.Form):
     nombre = forms.CharField(label='Nombre', max_length=50,widget=forms.TextInput(input_attrs))
     a_paterno = forms.CharField(label='Apellido Paterno', max_length=50,widget=forms.TextInput(input_attrs))
     a_materno = forms.CharField(label='Apellido Materno', max_length=50,widget=forms.TextInput(input_attrs))
+    fecha_nacimiento = forms.DateField(label='Fecha de Nacimiento', widget=forms.DateInput(format=('%d-%m-%Y'),attrs=input_attrs))
