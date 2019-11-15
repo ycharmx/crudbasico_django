@@ -11,5 +11,6 @@ urlpatterns = [
     path('',views.email,name='email'),
     path('personas/',views.ListarView.as_view(), name = 'listar'),
     path('editar/<int:pk>/',views.EditarView.as_view(), name = 'editar'),
-    path('agregar/',views.crear, name = 'agregar')
+    path('agregar/',views.crear, name = 'agregar'),
+    path('generar_pdf/',views.generar_pdf,name ='generar_pdf')
 ]

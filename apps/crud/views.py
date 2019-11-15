@@ -1,6 +1,7 @@
+import io
 #Importamos la opcion para validar la existencia del objeto ==> get_object_or_404
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, FileResponse
 from django.views import generic
 #importamos el modelo persona que se ha creado
 from .models import Persona
@@ -8,6 +9,7 @@ from .models import Persona
 #importamos las formas para renderizar los formularios
 from .forms import EmailForm, RegistroPersonaForm
 
+from reportlab.pdfgen import canvas
 # def inicio(req):
 #     return HttpResponse("Hola mundo")
 
@@ -17,6 +19,22 @@ from .forms import EmailForm, RegistroPersonaForm
 #     # resultado = ','.join([p.nombre for p in lista_personas])
 #     context = {'personas' : lista_personas}
 #     return render(req,'crud/listar.html',context)
+
+# def editar(req, id_persona):
+#     try:
+#         persona = get_object_or_404(Persona, pk=id_persona)
+#         context = {'persona':persona}
+#     except Persona.DoesNotExist:
+#         raise Http404("La persona no existe")
+#     return render(req,'crud/editar.html',context)
+
+# def eliminar(req, id_persona):
+#     try:
+#         persona = get_object_or_404(Persona,pk=id_persona)
+#     except Persona.DoesNotExist:
+#         raise Http404("La persona no existe")
+#     return HttpResponse()
+
 
 def email(req):
     if req.method == "POST":
@@ -29,7 +47,6 @@ def email(req):
     else:
         form = EmailForm()
     return render(req,'crud/email.html', {'form':form})
-
 
 def crear(req):
     form = RegistroPersonaForm()
@@ -50,20 +67,14 @@ def crear(req):
         
     return render(req,'crud/registrar.html',{'form':form})
 
-# def editar(req, id_persona):
-#     try:
-#         persona = get_object_or_404(Persona, pk=id_persona)
-#         context = {'persona':persona}
-#     except Persona.DoesNotExist:
-#         raise Http404("La persona no existe")
-#     return render(req,'crud/editar.html',context)
-
-# def eliminar(req, id_persona):
-#     try:
-#         persona = get_object_or_404(Persona,pk=id_persona)
-#     except Persona.DoesNotExist:
-#         raise Http404("La persona no existe")
-#     return HttpResponse()
+def generar_pdf(req, id_persona):
+    buffer = io.BytesIO()
+    pdf = canvas.Canvas(buffer)
+    pdf.drawString(100, 100, "Hello world.")
+    pdf.showPage()
+    pdf.save()
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
 
 class ListarView(generic.ListView):
     template_name = 'crud/listar.html'
