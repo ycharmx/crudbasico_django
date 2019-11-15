@@ -76,11 +76,20 @@ def generar_pdf(req, id_persona):
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
 
+# def eliminar(req):
+#     if req.method == 'POST':
+    
+
 class ListarView(generic.ListView):
     template_name = 'crud/listar.html'
     context_object_name = 'personas'
     def get_queryset(self):
         return Persona.objects.order_by("-fecha_registro")
+
+    def delete(self, request):
+        # delete an object and send a confirmation response
+        Persona.objects.get(pk=request.DELETE['pk']).delete()
+        return HttpResponse()
 
 class EditarView(generic.DetailView):
     model = Persona
