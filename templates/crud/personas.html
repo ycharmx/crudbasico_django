@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD Básico</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+</head>
+<body>
+        {% include 'appbar.html' %}  
+
+        <div class="container">
+               
+                <div class="row">
+                    <div class="col-10">
+                        <h2>Personas</h2>
+                </div>
+
+                    <div class="col-2">
+                            <a href="{% url 'crud:agregar_persona' %}" class="float-right btn btn-success btn-sm my-auto mx-0">Agregar</a>
+                    </div>
+                        
+                </div>
+                <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido Paterno</th>
+                            <th scope="col">Apellido Materno</th>
+                            <th scope="col">Nació</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for persona in personas %}
+                            <tr>
+
+                                <th scope="row">{{ persona.nombre }}</th>
+                                <td>{{ persona.a_paterno }}</td>
+                                <td>{{ persona.a_materno }}</td>
+                                <td>{{ persona.fecha_nacimiento }}</td>
+                                <td><a href="{% url 'crud:editar_persona' persona.id %}" class="btn-sm btn-warning">Editar</a></td>
+                                <td>
+                                    <a href="" 
+                                        id="{{ persona.id }}" 
+                                        class="eliminarPersona btn-sm btn-danger" 
+                                        data-toggle="modal" 
+                                        data-target="#eliminarPersonaModal"
+                                        data-persona="{{persona.nombre}} {{persona.a_paterno}} {{persona.a_materno}}"
+                                    >Eliminar</a>
+                                    <!-- <button type="button" data-toggle="modal" data-target="#eliminarPersonaModal" class="btn-sm btn-danger">Eliminar</button> -->
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        
+                        </tbody>
+                    </table> 
+
+            
+        </div>
+
+        <div class="modal fade" id="eliminarPersonaModal" persona-id="" tabindex="-1" role="dialog" aria-labelledby="eliminarPersonaModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="eliminarPersonaModalLabel">Confirmación</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <h5>Estas seguro de eliminar a:</h5>
+                      <h6>
+
+                      </h6>
+                    </div>
+                    <div class="modal-footer">
+                    <form method="POST" action="{% url 'crud:eliminar' %}"> 
+                            {% csrf_token %}
+                            <input type="hidden" name='pk' class="hidden" value="" id="id_pk">
+                            <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" class="btn btn-primary btn-warning" value="Continuar">
+                    </form>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+        
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript">
+
+         $(document).on('click', '.eliminarPersona', function () {
+            $("#eliminarPersonaModal").attr("persona-id", $(this).attr("id"));
+            $("#eliminarPersonaModal").find("h6").empty().append($(this).attr("data-persona"));
+            $("#eliminarPersonaModal").find("input.hidden").attr("value", $(this).attr("id"));
+        });
+
+        </script>
+
+</body>
+</html>

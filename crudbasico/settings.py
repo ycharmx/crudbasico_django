@@ -76,6 +76,7 @@ WSGI_APPLICATION = 'crudbasico.wsgi.application'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR,'static/css'),
     os.path.join(BASE_DIR,'static/js')
 ]
 
@@ -135,7 +136,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#cambiamos el lenguaje a español mexico
+LANGUAGE_CODE = 'es-mx'
 
 TIME_ZONE = 'UTC'
 
