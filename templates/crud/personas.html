@@ -27,7 +27,6 @@
                 <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th></th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido Paterno</th>
                             <th scope="col">Apellido Materno</th>
@@ -39,8 +38,8 @@
 
                             {% for persona in personas %}
                             <tr>
-
-                                <th>{{ persona.nombre }}</th>
+                                
+                                <td>{{ persona.nombre }}</td>
                                 <td>{{ persona.a_paterno }}</td>
                                 <td>{{ persona.a_materno }}</td>
                                 <td>{{ persona.fecha_nacimiento }}</td>
