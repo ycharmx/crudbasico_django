@@ -16,11 +16,11 @@
                
                 <div class="row">
                     <div class="col-10">
-                        <h2>Personas</h2>
+                        <h2>Empleados</h2>
                 </div>
 
                     <div class="col-2">
-                            <a href="{% url 'crud:agregar_persona' %}" class="float-right btn btn-success btn-sm my-auto mx-0">Agregar</a>
+                            <a href="{% url 'crud:agregar_empleado' %}" class="float-right btn btn-success btn-sm my-auto mx-0">Agregar</a>
                     </div>
                         
                 </div>
@@ -36,23 +36,23 @@
                         </thead>
                         <tbody>
 
-                            {% for persona in personas %}
+                            {% for empleado in empleados %}
                             <tr>
                                 
-                                <td>{{ persona.nombre }}</td>
-                                <td>{{ persona.a_paterno }}</td>
-                                <td>{{ persona.a_materno }}</td>
-                                <td>{{ persona.fecha_nacimiento }}</td>
-                                <td><a href="{% url 'crud:editar_persona' persona.id %}" class="btn-sm btn-warning">Editar</a></td>
+                                <td>{{ empleado.nombre }}</td>
+                                <td>{{ empleado.a_paterno }}</td>
+                                <td>{{ empleado.a_materno }}</td>
+                                <td>{{ empleado.fecha_nacimiento }}</td>
+                                <td><a href="{% url 'crud:editar_empleado' empleado.id %}" class="btn-sm btn-warning">Editar</a></td>
                                 <td>
                                     <a href="" 
-                                        id="{{ persona.id }}" 
-                                        class="eliminarPersona btn-sm btn-danger" 
+                                        id="{{ empleado.id }}" 
+                                        class="eliminarempleado btn-sm btn-danger" 
                                         data-toggle="modal" 
-                                        data-target="#eliminarPersonaModal"
-                                        data-persona="{{persona.nombre}} {{persona.a_paterno}} {{persona.a_materno}}"
+                                        data-target="#eliminarempleadoModal"
+                                        data-empleado="{{empleado.nombre}} {{empleado.a_paterno}} {{empleado.a_materno}}"
                                     >Eliminar</a>
-                                    <!-- <button type="button" data-toggle="modal" data-target="#eliminarPersonaModal" class="btn-sm btn-danger">Eliminar</button> -->
+                                    <!-- <button type="button" data-toggle="modal" data-target="#eliminarempleadoModal" class="btn-sm btn-danger">Eliminar</button> -->
                                 </td>
                             </tr>
                             {% endfor %}
@@ -63,11 +63,11 @@
             
         </div>
 
-        <div class="modal fade" id="eliminarPersonaModal" persona-id="" tabindex="-1" role="dialog" aria-labelledby="eliminarPersonaModalLabel" aria-hidden="true">
+        <div class="modal fade" id="eliminarempleadoModal" empleado-id="" tabindex="-1" role="dialog" aria-labelledby="eliminarempleadoModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="eliminarPersonaModalLabel">Confirmación</h5>
+                      <h5 class="modal-title" id="eliminarempleadoModalLabel">Confirmación</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -97,10 +97,10 @@
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <script type="text/javascript">
 
-         $(document).on('click', '.eliminarPersona', function () {
-            $("#eliminarPersonaModal").attr("persona-id", $(this).attr("id"));
-            $("#eliminarPersonaModal").find("h6").empty().append($(this).attr("data-persona"));
-            $("#eliminarPersonaModal").find("input.hidden").attr("value", $(this).attr("id"));
+         $(document).on('click', '.eliminarempleado', function () {
+            $("#eliminarempleadoModal").attr("empleado-id", $(this).attr("id"));
+            $("#eliminarempleadoModal").find("h6").empty().append($(this).attr("data-empleado"));
+            $("#eliminarempleadoModal").find("input.hidden").attr("value", $(this).attr("id"));
         });
 
         </script>

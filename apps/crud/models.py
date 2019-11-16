@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-class Persona(models.Model):
+class Empleado(models.Model):
     
     nombre = models.CharField(max_length=50)
     a_materno = models.CharField(max_length=50)

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect, FileResponse
 from django.views import generic
 #importamos el modelo persona que se ha creado
-from .models import Persona
+from .models import Empleado
 
 #importamos las formas para renderizar los formularios
 from .forms import EmailForm, RegistroPersonaForm
@@ -15,9 +15,9 @@ from reportlab.pdfgen import canvas
 
 # #método para listar las personas
 def listar(req):
-    lista_personas = Persona.objects.order_by("-fecha_registro")
-        # resultado = ','.join([p.nombre for p in lista_personas])
-    context = {'personas' : lista_personas}
+    lista_empleado = Empleado.objects.order_by("-fecha_registro")
+        # resultado = ','.join([p.nombre for p in lista_empleado])
+    context = {'personas' : lista_empleado}
     if req.method == 'POST':
         print(req.POST.get('pk'))
         return render(req,'crud/listar.html',context)
@@ -57,10 +57,10 @@ def eliminar(req):
         pk=int(req.POST.get('pk',0))
         print(req.POST.get('pk'))
         try:
-            persona = get_object_or_404(Persona.objects.get(pk=pk))      
+            persona = get_object_or_404(Empleado.objects.get(pk=pk))      
             persona.delete();
             return HttpResponseRedirect('/personas/')
-        except Persona.DoesNotExist:
+        except Empleado.DoesNotExist:
             return HttpResponseRedirect('/personas/',{'error':'La persona no existe'})
         # delete an object and send a confirmation respons
     return HttpResponseRedirect('/personas/')
@@ -70,7 +70,7 @@ def crear(req):
     if req.method == "POST":
         form = RegistroPersonaForm(req.POST)
         if form.is_valid():
-            persona = Persona()
+            persona = Empleado()
             persona.nombre = form.cleaned_data['nombre']
             persona.a_materno = form.cleaned_data['a_materno']
             persona.a_paterno = form.cleaned_data['a_paterno']
@@ -102,10 +102,10 @@ class ListarView(generic.ListView):
     context_object_name = 'personas'
     
     def get_queryset(self):
-        return Persona.objects.order_by("-fecha_registro")
+        return Empleado.objects.order_by("-fecha_registro")
 
 class EditarView(generic.DetailView):
-    model = Persona
+    model = Empleado
     template_name = "crud/editar.html"
     context_object_name = 'persona'
 
