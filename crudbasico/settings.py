@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.crud',
-    'apps.render_pdf'
+    'apps.render_pdf',
+    'apps.email_exceptions',
+    
 ]
 
 MIDDLEWARE = [

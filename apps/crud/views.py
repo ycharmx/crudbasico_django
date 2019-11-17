@@ -1,7 +1,7 @@
 from django.http import HttpRequest, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, DeleteView, RedirectView, View
-from apps.render_pdf import render
+from apps.render_pdf.render import Render
 from django.utils import timezone
 
 from .models import Empleado
@@ -44,7 +44,7 @@ class RegistrarEmpleadoView(TemplateView):
                 empleado.a_materno = form.cleaned_data['a_materno']
                 empleado.a_paterno = form.cleaned_data['a_paterno']
                 empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
-                empleado.fecha_registro = form.cleaned_data['fecha_nacimiento']
+                empleado.fecha_registro = timezone.now()
                 empleado.sexo = True
                 empleado.save()
                 return HttpResponseRedirect('/empleados')
@@ -110,13 +110,13 @@ class ReporteEmpleadosPDF(View):
 
     def get(self, request):
         empleados = Empleado.objects.order_by('-fecha_registro')
-        fecha = timezone.today()
+        fecha = timezone.now()
         correo = 'correo'
         params = {
             'email' : correo,
             'fecha' : fecha,
             'empleados': empleados,
         }
-        return render.Render.render('pdf.html', params)
+        return Render.render('render_pdf/rpt_empleados.html', params)
 
 

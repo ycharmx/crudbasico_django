@@ -16,7 +16,7 @@
         }
         .table th,
         .table td {
-            padding: 5px;
+            padding: 3px;
             vertical-align: top;
             border-top: 1px solid #000;
             text-align: center;
@@ -52,7 +52,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3>Reporte de empleados - {{ fecha | date:"d/m/Y" }}</h3>
+            <h3>Reporte de empleados - {{ fecha }}</h3>
         </div>
 
         <div class="list-group">
@@ -72,10 +72,10 @@
             <tbody>
             {% for empleado in empleados %}
                 <tr>
-                    <td>{{ empleado.fecha_registro | date:"d/m/Y" }}</td>
-                    <td>{{ empleados.nombre }}</td>
-                    <td>{{ empleados.a_paterno }}</td>
-                    <td>{{ empleados.a_materno }}</td>
+                    <td>{{ empleado.fecha_registro}}</td>
+                    <td>{{ empleado.nombre }}</td>
+                    <td>{{ empleado.a_paterno }}</td>
+                    <td>{{ empleado.a_materno }}</td>
                     <td>{{ empleado.fecha_nacimiento | date:"d/m/Y" }}</td>
                 </tr>
             {% endfor %}
