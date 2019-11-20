@@ -14,17 +14,21 @@ json_config = LoadConfig('apps_config.json')
 email_server = EmailConnection()
 email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
 
+
+# Formato de uso para el servicio de gmail
+# ----------------------------------------------------------------------------------------------
+# email_server.send_email_new_item(
+#             'CRUD Basico',
+#             'cdanielhdezperez@gmail.com',
+#             'Inicio de email server',
+#              timezone.now().__str__() + ' - Error get() crud:views ' + self.template_name)
+
 class EmailView(TemplateView):
 
     template_name = 'crud/email.html'
 
     def get(self, request):
         form = EmailForm()
-        email_server.send_email_new_item(
-            'CRUD Basico',
-            'cdanielhdezperez@gmail.com',
-            'Inicio de email server',
-             timezone.now().__str__() + ' - Error get() crud:views ' + self.template_name)
         return render(request, self.template_name, {'form':form})
     
     def post(self, request):
