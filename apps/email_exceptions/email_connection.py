@@ -9,7 +9,7 @@ class EmailConnection:
         try:
             self.server.login(email_username, email_password)
             print ('LOGIN IS DONE YEYYY, YOU CAN NOW SEND SHIT EMAILS. xD')
-            return self.server.starttls()
+            return self.server.starttls();
         except smtplib.SMTPHeloError:
             print ('The server responded weird stuff to my login request, please try again')
             return False
@@ -21,9 +21,9 @@ class EmailConnection:
             return False
 
     def send_email_new_item(self, FROM, TO, TEXT, item_name):
-        SUBJECT = 'New potencial item: %s' % item_name
+        SUBJECT = 'Nueva excepcion: %s' % item_name
         try:
-            message = """\From: %s\nTo: %s\nSubject: %s\n\n%s""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
+            message = """\From: %s\nTo: %s\nSubject: %s\n\n%s""" % (FROM, "".join(TO), SUBJECT, TEXT)
             self.server.sendmail(FROM, TO, message)
             self.email_number += 1
             print ('Email number '+ str(self.email_number) + ' was sent for the item ' + item_name)

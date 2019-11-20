@@ -20,7 +20,11 @@ class EmailView(TemplateView):
 
     def get(self, request):
         form = EmailForm()
-        email_server.send_email_new_item('CRUD Basico','cdanielhdezperez@gmail.com','Inicio de email server','1' )
+        email_server.send_email_new_item(
+            'CRUD Basico',
+            'cdanielhdezperez@gmail.com',
+            'Inicio de email server',
+             timezone.now().__str__() + ' - Error get() crud:views ' + self.template_name)
         return render(request, self.template_name, {'form':form})
     
     def post(self, request):
