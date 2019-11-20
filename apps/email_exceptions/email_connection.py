@@ -9,7 +9,7 @@ class EmailConnection:
         try:
             self.server.login(email_username, email_password)
             print ('LOGIN IS DONE YEYYY, YOU CAN NOW SEND SHIT EMAILS. xD')
-            return True
+            return self.server.starttls()
         except smtplib.SMTPHeloError:
             print ('The server responded weird stuff to my login request, please try again')
             return False

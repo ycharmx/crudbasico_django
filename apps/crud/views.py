@@ -1,17 +1,26 @@
 from django.http import HttpRequest, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, DeleteView, RedirectView, View
-from apps.render_pdf.render import Render
 from django.utils import timezone
+
+from apps.render_pdf.render import Render
+from apps.email_exceptions.email_connection import EmailConnection
+from crudbasico.base import LoadConfig
 
 from .models import Empleado
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
 
+json_config = LoadConfig('apps_config.json')
+email_server = EmailConnection()
+email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
+
 class EmailView(TemplateView):
+
     template_name = 'crud/email.html'
 
     def get(self, request):
         form = EmailForm()
+        email_server.send_email_new_item('CRUD Basico','cdanielhdezperez@gmail.com','Inicio de email server','1' )
         return render(request, self.template_name, {'form':form})
     
     def post(self, request):
@@ -62,8 +71,10 @@ class EditarEmpleadoView(TemplateView):
                 'a_paterno' : empleado.a_paterno, 
                 'a_materno' :  empleado.a_materno, 
                 'fecha_nacimiento' : empleado.fecha_nacimiento,})
+            
             return render(request, self.template_name, {'form' : form,})
         except Empleado.DoesNotExist:    
+            email_server.send_email_new_item('CRUD Basico','cdanielhdezperez@gmail.com','Excepcion', )
             self.pk = 0;
             return render(request, 'crud/excepciones.html', {'error' : 'La empleado no existe'})
 
