@@ -6,6 +6,7 @@ from django.utils import timezone
 from apps.render_pdf.render import Render
 from apps.email_exceptions.send_email import NotificarException
 from crudbasico.base import LoadConfig
+from django.core.mail import EmailMessage
 
 from .models import Empleado
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
@@ -36,6 +37,8 @@ class EmailView(TemplateView):
         #     'crud.views %s method:get' % (self.template_name),
         #     'Excepcion en la pagina de la aodijasdoij'
         # )
+        email = EmailMessage('title', 'body', to=['cdanielhdezperez@gmail.com'])
+        email.send()
         return render(request, self.template_name, {'form':form})
     
     def post(self, request):
