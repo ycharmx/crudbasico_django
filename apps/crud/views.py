@@ -31,11 +31,11 @@ class EmailView(TemplateView):
 
     def get(self, request):
         form = EmailForm()
-        excepcion.enviar_mensaje(
-            timezone.now(),
-            'crud.views %s method:get' % (self.template_name),
-            'Excepcion en la pagina de la aodijasdoij'
-        )
+        # excepcion.enviar_mensaje(
+        #     timezone.now(),
+        #     'crud.views %s method:get' % (self.template_name),
+        #     'Excepcion en la pagina de la aodijasdoij'
+        # )
         return render(request, self.template_name, {'form':form})
     
     def post(self, request):
@@ -89,7 +89,6 @@ class EditarEmpleadoView(TemplateView):
             
             return render(request, self.template_name, {'form' : form,})
         except Empleado.DoesNotExist:    
-            self.pk = 0;
             return render(request, 'crud/excepciones.html', {'error' : 'La empleado no existe'})
 
     def post(self, request, pk):
