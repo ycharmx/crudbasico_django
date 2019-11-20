@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+from .base import LoadConfig
 import os
 
+configuracion = LoadConfig('apps_config.json')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -108,8 +109,8 @@ DATABASES = {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'crudbasico',
         'USER': 'sa',
-        'PASSWORD': 'E6gxvpoW',
-        'HOST': '45.56.70.238',
+        'PASSWORD': configuracion.get_env_var('sqlserver_password'),
+        'HOST': configuracion.get_env_var('sqlserver_host'),
         'PORT': '',
         # 'OPTIONS': {
         #     'driver' : 'Microsoft ODBC Driver 17 for SQL Server'
