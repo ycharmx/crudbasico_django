@@ -37,3 +37,4 @@ class EmailConnection:
         except:
             print ('SHIT HAPPENED DEAL WITH IT')
             return False
+

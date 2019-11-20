@@ -4,15 +4,15 @@ from django.views.generic import TemplateView, DeleteView, RedirectView, View
 from django.utils import timezone
 
 from apps.render_pdf.render import Render
-from apps.email_exceptions.email_connection import EmailConnection
+from apps.email_exceptions.send_email import NotificarException
 from crudbasico.base import LoadConfig
 
 from .models import Empleado
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
 
-json_config = LoadConfig('apps_config.json')
-email_server = EmailConnection()
-email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
+# json_config = LoadConfig('apps_config.json')
+# email_server = EmailConnection()
+# email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
 
 
 # Formato de uso para el servicio de gmail
@@ -23,12 +23,19 @@ email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_va
 #             'Inicio de email server',
 #              timezone.now().__str__() + ' - Error get() crud:views ' + self.template_name)
 
+excepcion = NotificarException()
+
 class EmailView(TemplateView):
 
     template_name = 'crud/email.html'
 
     def get(self, request):
         form = EmailForm()
+        excepcion.enviar_mensaje(
+            timezone.now(),
+            'crud.views %s method:get' % (self.template_name),
+            'Excepcion en la pagina de la aodijasdoij'
+        )
         return render(request, self.template_name, {'form':form})
     
     def post(self, request):
@@ -82,7 +89,6 @@ class EditarEmpleadoView(TemplateView):
             
             return render(request, self.template_name, {'form' : form,})
         except Empleado.DoesNotExist:    
-            email_server.send_email_new_item('CRUD Basico','cdanielhdezperez@gmail.com','Excepcion', )
             self.pk = 0;
             return render(request, 'crud/excepciones.html', {'error' : 'La empleado no existe'})
 
