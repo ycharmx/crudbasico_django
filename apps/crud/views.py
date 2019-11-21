@@ -6,9 +6,9 @@ from django.utils import timezone
 from apps.render_pdf.render import Render
 from apps.email_exceptions.send_email import NotificarException
 from crudbasico.base import LoadConfig
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 
-from .models import Empleado
+from .models import Empleado    
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
 
 # json_config = LoadConfig('apps_config.json')
@@ -18,65 +18,86 @@ from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
 
 # Formato de uso para el servicio de gmail
 # ----------------------------------------------------------------------------------------------
-# email_server.send_email_new_item(
-#             'CRUD Basico',
-#             'cdanielhdezperez@gmail.com',
-#             'Inicio de email server',
-#              timezone.now().__str__() + ' - Error get() crud:views ' + self.template_name)
+# excepcion.enviar_mensaje(
+#     timezone.now(),
+#     'crud.views %s method:get' % (self.template_name),
+#     'Excepcion en la pagina de la aodijasdoij'
+# )
 
 excepcion = NotificarException()
 
 class EmailView(TemplateView):
-
     template_name = 'crud/email.html'
 
     def get(self, request):
-        form = EmailForm()
-        # excepcion.enviar_mensaje(
-        #     timezone.now(),
-        #     'crud.views %s method:get' % (self.template_name),
-        #     'Excepcion en la pagina de la aodijasdoij'
-        # )
-        email = EmailMessage('title', 'body', to=['cdanielhdezperez@gmail.com'])
-        email.send()
-        return render(request, self.template_name, {'form':form})
-    
+        try:  
+            form = EmailForm()
+            return render(request, self.template_name, {'form':form})
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.EmailView %s method:get' % (self.template_name),
+                '%s' % (str(e))
+            )
+
     def post(self, request):
-        form = EmailForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-        
-        return HttpResponseRedirect('/empleados/')
+        try:
+            form = EmailForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                return HttpResponseRedirect('/empleados/')
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.EmailView %s method:post' % (self.template_name),
+                '%s' % (str(e))
+            )
 
 class HomeView(TemplateView):
     template_name = 'crud/empleados.html'
 
     def get(self, request):
-        empleados = Empleado.objects.order_by('-fecha_registro')
-        return render(request,self.template_name,{'empleados':empleados})
-
+        try:
+            empleados = Empleado.objects.order_by('-fecha_registro')
+            return render(request,self.template_name,{'empleados':empleados})    
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.HomeView %s method:get' % (self.template_name),
+                '%s' % (str(e))
+            )
+        
 class RegistrarEmpleadoView(TemplateView):
     template_name = 'crud/registrar.html'
 
     def get(self, request):
-        form = EmpleadoForm()
-        return render(request, self.template_name,{'form':form} )
-
+        try:
+            form = EmpleadoForm()
+            return render(request, self.template_name,{'form':form} )
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.RegistrarEmpleadoView %s method:get' % (self.template_name),
+                '%s' % (str(e))
+            )
+       
     def post(self, request):
-        if request.method == 'POST':
-            form = EmpleadoForm(request.POST)
-            if form.is_valid():
-                empleado = Empleado()
-                empleado.nombre = form.cleaned_data['nombre']
-                empleado.a_materno = form.cleaned_data['a_materno']
-                empleado.a_paterno = form.cleaned_data['a_paterno']
-                empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
-                empleado.fecha_registro = timezone.now()
-                empleado.sexo = True
-                empleado.save()
-                return HttpResponseRedirect('/empleados')
-            else:
-                return render(request, self.template_name, {'resultados' : 'El formulario no es valido'})
+        try:
+            if request.method == 'POST':
+                form = EmpleadoForm(request.POST)
+                if form.is_valid():
+                    empleado = Empleado()
+                    empleado.nombre = form.cleaned_data['nombre']
+                    empleado.a_materno = form.cleaned_data['a_materno']
+                    empleado.a_paterno = form.cleaned_data['a_paterno']
+                    empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
+                    empleado.fecha_registro = timezone.now()
+                    empleado.sexo = True
+                    empleado.save()
+                    return HttpResponseRedirect('/empleados')
+                else:
+                    return render(request, self.template_name, {'resultados' : 'El formulario no es valido'})
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.RegistrarEmpleadoView %s method:post' % (self.template_name),
+                '%s' % (str(e))
+            )
 
 class EditarEmpleadoView(TemplateView):
     template_name = 'crud/editar.html'
@@ -89,61 +110,75 @@ class EditarEmpleadoView(TemplateView):
                 'a_paterno' : empleado.a_paterno, 
                 'a_materno' :  empleado.a_materno, 
                 'fecha_nacimiento' : empleado.fecha_nacimiento,})
-            
             return render(request, self.template_name, {'form' : form,})
         except Empleado.DoesNotExist:    
-            return render(request, 'crud/excepciones.html', {'error' : 'La empleado no existe'})
+            return render(request, 'crud/excepciones.html', {'error' : 'Emplead@ no existente'})
 
     def post(self, request, pk):
-        if request.method == 'POST':
-            form = EmpleadoForm(request.POST)
-            if form.is_valid():
-                try:
-                    empleado = get_object_or_404(Empleado,pk = pk)
-                    empleado.nombre = form.cleaned_data['nombre']
-                    empleado.a_paterno = form.cleaned_data['a_paterno']
-                    empleado.a_materno = form.cleaned_data['a_materno']
-                    empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
-                    empleado.save()
-                    
-                    form = EmpleadoForm(initial={
-                        'nombre' : empleado.nombre, 
-                        'a_paterno' : empleado.a_paterno, 
-                        'a_materno' :  empleado.a_materno, 
-                        'fecha_nacimiento' : empleado.fecha_nacimiento,}
-                    )
+        try:
+            if request.method == 'POST':
+                form = EmpleadoForm(request.POST)
+                if form.is_valid():
+                    try:
+                        empleado = get_object_or_404(Empleado,pk = pk)
+                        empleado.nombre = form.cleaned_data['nombre']
+                        empleado.a_paterno = form.cleaned_data['a_paterno']
+                        empleado.a_materno = form.cleaned_data['a_materno']
+                        empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
+                        empleado.save()
+                        
+                        form = EmpleadoForm(initial={
+                            'nombre' : empleado.nombre, 
+                            'a_paterno' : empleado.a_paterno, 
+                            'a_materno' :  empleado.a_materno, 
+                            'fecha_nacimiento' : empleado.fecha_nacimiento,}
+                        )
 
-                    return render(request, self.template_name, {'resultado' : 'Se ha actualizado el registro exitosamente','form' :form},)
-                except Empleado.DoesNotExist:
-                    return render(request, 'crud/excepciones.html', {'error' : 'El usuario que se intenta actualizar no existe'})
-            else:
-                return render(request, self.template_name, {'resultado' : 'Se ha actualizado el registro exitosamente'})
+                        return render(request, self.template_name, {'resultado' : 'Se ha actualizado el registro exitosamente','form' :form},)
+                    except Empleado.DoesNotExist:
+                        return render(request, 'crud/excepciones.html', {'error' : 'El usuario que se intenta actualizar no existe'})
+                else:
+                    return render(request, self.template_name, {'resultado' : 'Se ha actualizado el registro exitosamente'})
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
+                '%s' % (str(e))
+            )
 
 class EliminarEmpleadoView(TemplateView):
     
     def post(self, request):
-        if request.method == 'POST':
-            form = EliminarEmpleadoForm(request.POST)
-            if form.is_valid():
-                try:
+        try:
+            if request.method == 'POST':
+                form = EliminarEmpleadoForm(request.POST)
+                if form.is_valid():
                     pk = form.cleaned_data['pk']
                     empleado = get_object_or_404(Empleado,pk = pk)
                     empleado.delete()
                     return HttpResponseRedirect('/empleados')
-                except Empleado.DoesNotExist:
-                    return render(request,'crud/excepciones.html',{'error' : 'La empleado que desea eliminar no existe'})
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
+                '%s' % (str(e))
+            )
 
 class ReporteEmpleadosPDF(View):
 
     def get(self, request):
-        empleados = Empleado.objects.order_by('-fecha_registro')
-        fecha = timezone.now()
-        correo = 'correo'
-        params = {
-            'email' : correo,
-            'fecha' : fecha,
-            'empleados': empleados,
-        }
-        return Render.render('render_pdf/rpt_empleados.html', params)
+        try:
+            empleados = Empleado.objects.order_by('-fecha_registro')
+            fecha = timezone.now()
+            correo = 'correo'
+            params = {
+                'email' : correo,
+                'fecha' : fecha,
+                'empleados': empleados,
+            }
+            return Render.render('render_pdf/rpt_empleados.html', params)
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.ReporteEmpleadoView %s method:ge' % (self.template_name),
+                '%s' % (str(e))
+            )
 
 

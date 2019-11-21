@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +10,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 </head>
 <body>
-    {% include 'appbar.html' %}  
-    <div class="container mb-5">
-        <div class="row">
-            <div class=col-12>
-                    <h6>{{ error }}</h6>
+        {% include 'appbar.html' %}  
+        
+        <div class="row align-items-center h-100 mx-0">
+            <div class="col-xl-5 col-lg-7 col-md-10 col-sm-10 container px-5">
+      
+                "Tienes espiritu de busqueda, pero aqui no hay nada :("
+
             </div>
-        </div>    
-    </div>
-    
+        </div>
+  
 </body>
 </html>

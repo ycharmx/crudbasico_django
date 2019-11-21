@@ -32,7 +32,7 @@ EMAIL_HOST_PASSWORD = configuracion.get_env_var('password')
 SECRET_KEY = 'hp4+30cj--2i$9ce4i48%q-fassuwx00w8xm18pmz5%&5ar$h2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [configuracion.get_env_var('allowed_host')]
 
