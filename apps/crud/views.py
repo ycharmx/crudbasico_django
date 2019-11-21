@@ -181,4 +181,3 @@ class ReporteEmpleadosPDF(View):
                 '%s' % (str(e))
             )
 
-
