@@ -10,6 +10,7 @@ from django.core.mail import EmailMessage, send_mail
 
 from .models import Empleado    
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
+from apps.email_exceptions.email_connection import EmailConnection
 
 # json_config = LoadConfig('apps_config.json')
 # email_server = EmailConnection()
@@ -32,7 +33,13 @@ class EmailView(TemplateView):
     def get(self, request):
         try:  
             form = EmailForm()
+            excepcion.enviar_mensaje(
+                'Nuevo Email %s' % (form.cleaned_data('email')),
+                '%s' % (str(e))
+            )
+            
             return render(request, self.template_name, {'form':form})
+
         except Exception as e:
             excepcion.enviar_mensaje(
                 'crud.views.EmailView %s method:get' % (self.template_name),

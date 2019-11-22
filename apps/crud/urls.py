@@ -10,8 +10,5 @@ urlpatterns = [
     path('empleados/<int:pk>/editar/',views.EditarEmpleadoView.as_view(), name='editar_empleado'),
     path('empleados/eliminar/',views.EliminarEmpleadoView.as_view(),name = 'eliminar'),
     path('empleados/reporte/', views.ReporteEmpleadosPDF.as_view(), name = 'reporte_empleados')
-    # path('editar/<int:pk>/',views.EditarView.as_view(), name = 'editar'),
-    # path('agregar/',views.crear, name = 'agregar'),
-    # path('eliminar/',views.eliminar,name='eliminar'),
-    # path('generar_pdf/',views.generar_pdf,name ='generar_pdf')
+
 ]
