@@ -8,7 +8,15 @@ from bootstrap_datepicker_plus import DatePickerInput
 input_attrs = {'class' : 'form-control text-left mb-2'}
 
 class EmailForm(forms.Form):
-    email = forms.CharField(label='Correo Electrónico', max_length=30,widget=forms.TextInput(input_attrs))
+    email = forms.CharField(
+            label='Correo Electrónico', max_length=30,widget=forms.TextInput(input_attrs),
+            validators=[
+                RegexValidator(
+                    regex="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+
+                )
+            ]
+        )
 
 class EmpleadoForm(forms.Form):
     nombre = forms.CharField(

@@ -50,6 +50,8 @@ class EmailView(TemplateView):
                 email = form.cleaned_data['email']
                 request.session['email'] = email
                 return HttpResponseRedirect('/empleados/')
+            else:
+                return render(request, self.template_name, {'form': form, 'error' : 'Ingrese un correo valido'})
         except Exception as e:
             excepcion.enviar_mensaje(
                 'crud.views.EmailView %s method:post' % (self.template_name),
@@ -93,20 +95,26 @@ class RegistrarEmpleadoView(TemplateView):
     def post(self, request):
         try:
             if 'email' in request.session:
+                email = request.session['email']
                 if request.method == 'POST':
                     form = EmpleadoForm(request.POST)
                     if form.is_valid():
                         empleado = Empleado()
-                        empleado.nombre = form.cleaned_data['nombre']
-                        empleado.a_materno = form.cleaned_data['a_materno']
-                        empleado.a_paterno = form.cleaned_data['a_paterno']
+                        empleado.nombre = str.strip(form.cleaned_data['nombre'])
+                        empleado.a_materno = str.strip(form.cleaned_data['a_materno'])
+                        empleado.a_paterno = str.strip(form.cleaned_data['a_paterno'])
                         empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
                         empleado.fecha_registro = timezone.now()
                         empleado.sexo = True
                         empleado.save()
                         return HttpResponseRedirect('/empleados')
                     else:
-                        return render(request, self.template_name, {'resultados' : 'El formulario no es valido, revise los datos que está tratando de ingresar'})
+                        return render(request, self.template_name, 
+                            {   'form' :form, 
+                                'error' : 'El formulario no es valido, revise los datos que está tratando de ingresar',
+                                'email' : email
+                            }
+                        )
             else:
                 return HttpResponseRedirect("/")   
         except Exception as e:
@@ -137,7 +145,7 @@ class EditarEmpleadoView(TemplateView):
             else:
                 return HttpResponseRedirect("/")
         except Empleado.DoesNotExist:    
-            return render(request, 'crud/excepciones.html', {'error' : 'Emplead@ no existente'})
+            raise Http404()
 
     def post(self, request, pk):
         try:
@@ -147,8 +155,7 @@ class EditarEmpleadoView(TemplateView):
                 if request.method == 'POST':
                     form = EmpleadoForm(request.POST)
                     if form.is_valid():
-                        try:
-                    
+
                             empleado = get_object_or_404(Empleado,pk = pk)
                             empleado.nombre = str.strip(form.cleaned_data['nombre'])
                             empleado.a_paterno = str.strip(form.cleaned_data['a_paterno'])
@@ -168,20 +175,14 @@ class EditarEmpleadoView(TemplateView):
                                     'resultado' : 'Se ha actualizado el registro exitosamente',
                                     'form' :form,
                                     'email':email
-                                },
-                            )
-                        except Empleado.DoesNotExist:
-                            return render(request, 'crud/excepciones.html', 
-                                {
-                                    'error' : 'El usuario que se intenta actualizar no existe',
-                                    'email' : email
                                 }
                             )
                     else:
                         return render(request, self.template_name, 
                             {
-                                'resultado' : 'El formulario no es valido, revise los datos que está tratando de ingresar',
-                                'email' : email
+                                'error' : 'El formulario no es valido, revise los datos que está tratando de ingresar',
+                                'email' : email,
+                                'form' : form
                             }
                         )
         
@@ -193,20 +194,23 @@ class EditarEmpleadoView(TemplateView):
                 'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
                 '%s' % (str(e))
             )
+            raise Http404()
 
 class EliminarEmpleadoView(TemplateView):
     
     def post(self, request):
         try:
             if 'email' in request.session:
-                
                 if request.method == 'POST':
                     form = EliminarEmpleadoForm(request.POST)
                     if form.is_valid():
-                        pk = form.cleaned_data['pk']
-                        empleado = get_object_or_404(Empleado,pk = pk)
-                        empleado.delete()
-                        return HttpResponseRedirect('/empleados')
+                        try:
+                            pk = form.cleaned_data['pk']
+                            empleado = get_object_or_404(Empleado,pk = pk)
+                            empleado.delete()
+                            return HttpResponseRedirect('/empleados/')
+                        except Empleado.DoesNotExist:
+                            return HttpResponseRedirect("/empleados/")
             else:
                 return HttpResponseRedirect('/')
             
@@ -215,6 +219,7 @@ class EliminarEmpleadoView(TemplateView):
                 'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
                 '%s' % (str(e))
             )
+            raise Http404()
 
 class ReporteEmpleadosPDF(View):
 
