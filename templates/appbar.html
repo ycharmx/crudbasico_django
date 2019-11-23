@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +12,17 @@
                 <div class="container">
                
                     <a class="navbar-brand" href="{% url 'crud:empleados' %}">CRUD Básico</a>
+                    <div class="float-right ">
+                                
+                                <p class="d-inline my-auto">{{ email }}</p>
 
-                    
-                  <!-- <p class="float-right my-auto">Correo</p> -->
+                                <a class="float-right d-inline my-auto ml-3" href="{% url 'crud:salir' %}">
+                                        <img src="{% static 'img/salir.png' %}" style="width:20px;height:20px;">
+                                </a>
+                    </div>
+
                 </div>
+                
         </nav>
         <br>
 </body>

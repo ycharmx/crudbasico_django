@@ -14,9 +14,7 @@
     
     {% include 'appbar.html' %}
     <div class="container mb-5">
-            {% if resultado %} 
-                {{resultado}}
-            {% endif %}
+          
             <div class="row">
                     <div class="col-10">
                             <h3 class="mb-4">Editar empleado</h3>
@@ -25,14 +23,24 @@
                             <a class="float-right btn btn-success btn-sm" href="{% url 'crud:empleados' %}">Regresar</a>
                     </div>
             </div>
-             
+            {% if resultado %} 
+            <h6>
+                {{resultado}}
+            </h6>
+            
+        {% else %}
         <form method="POST">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Actualizar" class="btn btn-success btn-md mt-2 float-right">
+            <input type="submit" value="Actualizar" class="btn btn-success btn-md mt-4 float-right">
         </form>
+        {% endif %}
         <br>
     </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {{ form.media }}
 
 </body>
 </html>

@@ -32,7 +32,7 @@ EMAIL_HOST_PASSWORD = configuracion.get_env_var('password')
 SECRET_KEY = 'hp4+30cj--2i$9ce4i48%q-fassuwx00w8xm18pmz5%&5ar$h2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = configuracion.get_env_var('debug')
 
 ALLOWED_HOSTS = [configuracion.get_env_var('allowed_host')]
 
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.crud',
     'apps.render_pdf',
     'apps.email_exceptions',
+    'bootstrap_datepicker_plus',
     
 ]
 
@@ -90,7 +91,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
     os.path.join(BASE_DIR,'static/css'),
-    os.path.join(BASE_DIR,'static/js')
+    os.path.join(BASE_DIR,'static/js'),
+    os.path.join(BASE_DIR,'static/bootstrap_datepicker_plus')
 ]
 
 # Database
