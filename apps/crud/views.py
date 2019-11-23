@@ -190,10 +190,10 @@ class EditarEmpleadoView(TemplateView):
                 return HttpResponseRedirect("/")
            
         except Exception as e:
-            excepcion.enviar_mensaje(
-                'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
-                '%s' % (str(e))
-            )
+            # excepcion.enviar_mensaje(
+            #     'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
+            #     '%s' % (str(e))
+            # )
             raise Http404()
 
 class EliminarEmpleadoView(TemplateView):
@@ -215,10 +215,10 @@ class EliminarEmpleadoView(TemplateView):
                 return HttpResponseRedirect('/')
             
         except Exception as e:
-            excepcion.enviar_mensaje(
-                'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
-                '%s' % (str(e))
-            )
+            # excepcion.enviar_mensaje(
+            #     'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
+            #     '%s' % (str(e))
+            # )
             raise Http404()
 
 class ReporteEmpleadosPDF(View):
