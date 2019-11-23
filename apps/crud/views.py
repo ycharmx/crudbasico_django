@@ -223,9 +223,9 @@ class ReporteEmpleadosPDF(View):
             if 'email' in request.session:
                 empleados = Empleado.objects.order_by('-fecha_registro')
                 fecha = timezone.now()
-                correo = 'correo'
+                email = request.session['email']
                 params = {
-                    'email' : correo,
+                    'email' : email,
                     'fecha' : fecha,
                     'empleados': empleados,
                 }
