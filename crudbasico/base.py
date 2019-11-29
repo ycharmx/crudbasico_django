@@ -6,7 +6,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class LoadConfig:
     
-
     def __init__(self, config_file_name):
         with open(os.path.join(BASE_DIR,config_file_name)) as f:
             self.configs = json.loads(f.read())

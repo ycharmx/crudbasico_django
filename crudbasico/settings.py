@@ -23,7 +23,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = configuracion.get_env_var('email')
-EMAIL_HOST_PASSWORD = configuracion.get_env_var('password')
+EMAIL_HOST_PASSWORD = configuracion.get_env_var('email_password')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -95,36 +95,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static/bootstrap_datepicker_plus')
 ]
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'crudbasico',
-#         'USER': 'sa',
-#         'PASSWORD': '1940',
-#         'HOST': 'CHAR\SQLSERVER',
-#         'PORT': '',
-
-#         # 'OPTIONS': {
-#         #     'driver' : '{Microsoft ODBC Driver 17 for SQL Server}'
-#         # },
-#     },
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'crudbasico',
-        'USER': 'sa',
+        'USER': configuracion.get_env_var('sqlserver_user'),
         'PASSWORD': configuracion.get_env_var('sqlserver_password'),
         'HOST': configuracion.get_env_var('sqlserver_host'),
         'PORT': '',
-        # 'OPTIONS': {
-        #     'driver' : 'Microsoft ODBC Driver 17 for SQL Server'
-        # },
     },
 }
 
