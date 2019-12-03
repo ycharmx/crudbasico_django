@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'apps.render_pdf',
     'apps.email_exceptions',
     'bootstrap_datepicker_plus',
-    
 ]
 
 MIDDLEWARE = [
