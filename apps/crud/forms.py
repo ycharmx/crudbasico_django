@@ -56,4 +56,4 @@ class EmpleadoForm(forms.Form):
         )
 
 class EliminarEmpleadoForm(forms.Form):
-    pk = forms.IntegerField()
+    pk = forms.CharField()

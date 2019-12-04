@@ -1,7 +1,5 @@
 from django.urls import path, register_converter
 from . import views
-from encrypted_id import ekey
-
 
 class ConvertEkey:
     regex = '[0-9a-zA-Z-_=]+'
