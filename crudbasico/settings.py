@@ -86,6 +86,8 @@ TEMPLATES = [
     },
 ]
 
+ID_ENCRYPT_KEY = 'XUN1Ws76qR0w_9qKcTMRQ6ObR8rhDPgV5beZmmNeZCk='
+
 WSGI_APPLICATION = 'crudbasico.wsgi.application'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')

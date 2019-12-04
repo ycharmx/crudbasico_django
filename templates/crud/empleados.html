@@ -50,10 +50,10 @@
                               <td>{{ empleado.a_paterno }}</td>
                               <td>{{ empleado.a_materno }}</td>
                               <td>{{ empleado.fecha_nacimiento }}</td>
-                              <td><a href="{% url 'crud:editar_empleado' empleado.id %}" class="btn-sm btn-warning">Editar</a></td>
+                              <td><a href="{% url 'crud:editar_empleado' empleado.ekey %}" class="btn-sm btn-warning">Editar</a></td>
                               <td>
                                   <a href="" 
-                                      id="{{ empleado.id }}" 
+                                      id="{{ empleado.ekey }}" 
                                       class="eliminarempleado btn-sm btn-danger" 
                                       data-toggle="modal" 
                                       data-target="#eliminarempleadoModal"

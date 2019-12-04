@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from encrypted_id.models import EncryptedIDModel
 
-class Empleado(models.Model):
+class Empleado(EncryptedIDModel):
     
     nombre = models.CharField(max_length=50)
     a_materno = models.CharField(max_length=50)

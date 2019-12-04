@@ -12,6 +12,7 @@ from .models import Empleado
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
 from apps.email_exceptions.email_connection import EmailConnection
 
+from encrypted_id import decode
 # json_config = LoadConfig('apps_config.json')
 # email_server = EmailConnection()
 # email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
@@ -130,7 +131,7 @@ class EditarEmpleadoView(TemplateView):
         try:
             if 'email' in request.session:
                 email = request.session['email']
-                empleado = Empleado.objects.get(pk = pk)
+                empleado = Empleado.objects.get(pk = decode(pk))
                 form = EmpleadoForm(initial={
                     'nombre' : str.strip(empleado.nombre), 
                     'a_paterno' : str.strip(empleado.a_paterno), 
@@ -156,7 +157,7 @@ class EditarEmpleadoView(TemplateView):
                     form = EmpleadoForm(request.POST)
                     if form.is_valid():
 
-                            empleado = get_object_or_404(Empleado,pk = pk)
+                            empleado = get_object_or_404(Empleado,pk = decode(pk))
                             empleado.nombre = str.strip(form.cleaned_data['nombre'])
                             empleado.a_paterno = str.strip(form.cleaned_data['a_paterno'])
                             empleado.a_materno = str.strip(form.cleaned_data['a_materno'])
@@ -206,7 +207,7 @@ class EliminarEmpleadoView(TemplateView):
                     if form.is_valid():
                         try:
                             pk = form.cleaned_data['pk']
-                            empleado = get_object_or_404(Empleado,pk = pk)
+                            empleado = get_object_or_404(Empleado,pk = decode(pk))
                             empleado.delete()
                             return HttpResponseRedirect('/empleados/')
                         except Empleado.DoesNotExist:
