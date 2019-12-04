@@ -6,7 +6,6 @@ class Empleado(models.Model):
     nombre = models.CharField(max_length=50)
     a_materno = models.CharField(max_length=50)
     a_paterno = models.CharField(max_length=50)
-    sexo = models.BooleanField()
     fecha_nacimiento = models.DateField('Fecha de nacimiento')
     fecha_registro = models.DateTimeField('Fecha de registro en el servidor')
 

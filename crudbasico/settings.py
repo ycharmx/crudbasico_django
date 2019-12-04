@@ -9,11 +9,13 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-from .base import LoadConfig
+
 import os
 
-
+# Instancia de la clase LoadConfig
+from .base import LoadConfig
 configuracion = LoadConfig('apps_config.json')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -46,10 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'bootstrap_datepicker_plus',
     'apps.crud',
     'apps.render_pdf',
     'apps.email_exceptions',
-    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -97,7 +100,7 @@ STATICFILES_DIRS = [
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'crudbasico',
+        'NAME': configuracion.get_env_var('sqlserver_database'),
         'USER': configuracion.get_env_var('sqlserver_user'),
         'PASSWORD': configuracion.get_env_var('sqlserver_password'),
         'HOST': configuracion.get_env_var('sqlserver_host'),
