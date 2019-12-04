@@ -58,8 +58,7 @@
                                       data-toggle="modal" 
                                       data-target="#eliminarempleadoModal"
                                       data-empleado="{{empleado.nombre}} {{empleado.a_paterno}} {{empleado.a_materno}}"
-                                  >Eliminar</a>
-                                  <!-- <button type="button" data-toggle="modal" data-target="#eliminarempleadoModal" class="btn-sm btn-danger">Eliminar</button> -->
+                                  >Eliminar</a>                                  
                               </td>
                           </tr>
                           {% endfor %}
@@ -71,7 +70,7 @@
             
         </div>
 
-        <div class="modal fade" id="eliminarempleadoModal" empleado-id="" tabindex="-1" role="dialog" aria-labelledby="eliminarempleadoModalLabel" aria-hidden="true">
+        <div class="modal fade" id="eliminarempleadoModal" tabindex="-1" role="dialog" aria-labelledby="eliminarempleadoModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -106,7 +105,6 @@
         <script type="text/javascript">
 
          $(document).on('click', '.eliminarempleado', function () {
-            $("#eliminarempleadoModal").attr("empleado-id", $(this).attr("id"));
             $("#eliminarempleadoModal").find("h6").empty().append($(this).attr("data-empleado"));
             $("#eliminarempleadoModal").find("input.hidden").attr("value", $(this).attr("id"));
         });

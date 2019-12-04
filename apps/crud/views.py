@@ -10,21 +10,8 @@ from django.core.mail import EmailMessage, send_mail
 
 from .models import Empleado    
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
-from apps.email_exceptions.email_connection import EmailConnection
 
 from encrypted_id import decode
-# json_config = LoadConfig('apps_config.json')
-# email_server = EmailConnection()
-# email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
-
-
-# Formato de uso para el servicio de gmail
-# ----------------------------------------------------------------------------------------------
-# excepcion.enviar_mensaje(
-#     timezone.now(),
-#     'crud.views %s method:get' % (self.template_name),
-#     'Excepcion en la pagina de la aodijasdoij'
-# )
 
 excepcion = NotificarException()
 
@@ -106,7 +93,6 @@ class RegistrarEmpleadoView(TemplateView):
                         empleado.a_paterno = str.strip(form.cleaned_data['a_paterno'])
                         empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
                         empleado.fecha_registro = timezone.now()
-                        empleado.sexo = True
                         empleado.save()
                         return HttpResponseRedirect('/empleados')
                     else:
@@ -191,10 +177,10 @@ class EditarEmpleadoView(TemplateView):
                 return HttpResponseRedirect("/")
            
         except Exception as e:
-            # excepcion.enviar_mensaje(
-            #     'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
-            #     '%s' % (str(e))
-            # )
+            excepcion.enviar_mensaje(
+                'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
+                '%s' % (str(e))
+            )
             raise Http404()
 
 class EliminarEmpleadoView(TemplateView):
@@ -216,10 +202,10 @@ class EliminarEmpleadoView(TemplateView):
                 return HttpResponseRedirect('/')
             
         except Exception as e:
-            # excepcion.enviar_mensaje(
-            #     'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
-            #     '%s' % (str(e))
-            # )
+            excepcion.enviar_mensaje(
+                'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
+                '%s' % (str(e))
+            )
             raise Http404()
 
 class ReporteEmpleadosPDF(View):

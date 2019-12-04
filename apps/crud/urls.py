@@ -3,17 +3,14 @@ from . import views
 
 class ConvertEkey:
     regex = '[0-9a-zA-Z-_=]+'
-
     def to_python(self, value):
         return str(value)
-
     def to_url(self, value):
         return '%s' % value
 
-app_name = 'crud'
-
 register_converter(ConvertEkey, 'ekey')
 
+app_name = 'crud'
 urlpatterns = [
     path('',views.EmailView.as_view(),name='email'),
     path('empleados/',views.HomeView.as_view(), name = 'empleados'),
