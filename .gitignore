@@ -1,3 +1,8 @@
 apps_config.json
 .vscode
+<<<<<<< HEAD
 assets
+=======
+assets
+.gitignore
+>>>>>>> bca502c3ac692edf15721f221e8730516de7f59c
