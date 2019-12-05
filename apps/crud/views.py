@@ -227,7 +227,7 @@ class ReporteEmpleadosPDF(View):
 
         except Exception as e:
             excepcion.enviar_mensaje(
-                'crud.views.ReporteEmpleadoView %s method:ge' % (self.template_name),
+                'crud.views.ReporteEmpleadosView %s method:ge' % (self.template_name),
                 '%s' % (str(e))
             )
 
@@ -236,7 +236,7 @@ class ReporteEmpleadoPDF(View):
     def get(self, request, pk):
         try:
             if 'email' in request.session:
-                empleado = Empleado.objects.get(pk = decode(pk))
+                empleado = get_object_or_404(Empleado, pk = decode(pk))
                 fecha = timezone.now()
                 email = request.session['email']
                 params = {
@@ -246,13 +246,13 @@ class ReporteEmpleadoPDF(View):
                 }
                 return Render.render('render_pdf/rpt_empleado.html', params)
             else:
-                return HttpResponseRedirect("/")
-
+                return HttpResponseRedirect("/")            
         except Exception as e:
             excepcion.enviar_mensaje(
                 'crud.views.ReporteEmpleadoView %s method:ge' % (self.template_name),
                 '%s' % (str(e))
             )
+            raise Http404()
 
 
 def salir(request):
