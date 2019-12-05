@@ -23,7 +23,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = configuracion.get_env_var('email')
-EMAIL_HOST_PASSWORD = configuracion.get_env_var('password')
+EMAIL_HOST_PASSWORD = configuracion.get_env_var('email_password')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
