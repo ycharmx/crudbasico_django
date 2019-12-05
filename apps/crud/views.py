@@ -221,7 +221,10 @@ class ReporteEmpleadosPDF(View):
                     'fecha' : fecha,
                     'empleados': empleados,
                 }
-                return Render.render('render_pdf/rpt_empleados.html', params)
+                if empleados:                
+                    return Render.render('render_pdf/rpt_empleados.html', params)
+                else: 
+                    return HttpResponseRedirect("/empleados/")
             else:
                 return HttpResponseRedirect("/")
 

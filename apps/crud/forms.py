@@ -12,7 +12,12 @@ regex_only_letters =  RegexValidator(
 class EmailForm(forms.Form):
     email = forms.CharField(
             label='Correo Electrónico', max_length=30,widget=forms.TextInput(input_attrs),
-            validators = [ regex_only_letters ]            
+            validators=[
+                RegexValidator(
+                    regex="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+
+                )
+            ]            
         )
 
 class EmpleadoForm(forms.Form):
