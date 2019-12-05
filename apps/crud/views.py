@@ -231,6 +231,30 @@ class ReporteEmpleadosPDF(View):
                 '%s' % (str(e))
             )
 
+class ReporteEmpleadoPDF(View):
+
+    def get(self, request, pk):
+        try:
+            if 'email' in request.session:
+                empleado = Empleado.objects.get(pk = decode(pk))
+                fecha = timezone.now()
+                email = request.session['email']
+                params = {
+                    'email' : email,
+                    'fecha' : fecha,
+                    'empleado': empleado,
+                }
+                return Render.render('render_pdf/rpt_empleado.html', params)
+            else:
+                return HttpResponseRedirect("/")
+
+        except Exception as e:
+            excepcion.enviar_mensaje(
+                'crud.views.ReporteEmpleadoView %s method:ge' % (self.template_name),
+                '%s' % (str(e))
+            )
+
+
 def salir(request):
     if 'email' in request.session:
         del request.session['email']

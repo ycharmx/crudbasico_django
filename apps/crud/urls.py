@@ -18,5 +18,6 @@ urlpatterns = [
     path('empleados/editar/<ekey:pk>',views.EditarEmpleadoView.as_view(), name='editar_empleado'),
     path('empleados/eliminar/',views.EliminarEmpleadoView.as_view(),name = 'eliminar'),
     path('empleados/reporte/', views.ReporteEmpleadosPDF.as_view(), name = 'reporte_empleados'),
+    path('empleados/reporte/<ekey:pk>', views.ReporteEmpleadoPDF.as_view(), name = 'reporte_empleado'),
     path('salir/', views.salir, name='salir')
 ]

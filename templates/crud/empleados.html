@@ -18,12 +18,13 @@
                     <div class="col-lg-10 col-md-9 col-sm-1">
                         <h2>Empleados</h2>
                 </div>
-
+                    {% if empleados %}
                     <div class="col-lg-1 col-md-1 col-sm-1">
                             <a href="{% url 'crud:reporte_empleados' %}" target="_blank" class="float-left my-auto mx-0">
                                 <img src="{% static 'img/reporte.png' %}" style="width:30px;height:30 px;">
                             </a>
                     </div>
+                    {% endif %}
 
                     <div class="col-lg-1 col-md-2 col-sm-1" >
                             <a href="{% url 'crud:agregar_empleado' %}" class="float-right btn btn-success btn-sm my-auto mx-0">Agregar</a>
@@ -50,6 +51,11 @@
                               <td>{{ empleado.a_paterno }}</td>
                               <td>{{ empleado.a_materno }}</td>
                               <td>{{ empleado.fecha_nacimiento }}</td>
+                              <td>
+                                <a href="{% url 'crud:reporte_empleado' empleado.ekey %}" target="_blank" class="float-left my-auto mx-0">
+                                  <img src="{% static 'img/reporte.png' %}" style="width:25px;height:25 px;">
+                                </a>
+                              </td>
                               <td><a href="{% url 'crud:editar_empleado' empleado.ekey %}" class="btn-sm btn-warning">Editar</a></td>
                               <td>
                                   <a href="" 
@@ -60,6 +66,7 @@
                                       data-empleado="{{empleado.nombre}} {{empleado.a_paterno}} {{empleado.a_materno}}"
                                   >Eliminar</a>                                  
                               </td>
+                              
                           </tr>
                           {% endfor %}
                       
