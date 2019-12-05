@@ -1,3 +1,4 @@
 apps_config.json
 .vscode
 assets
+.gitignore
