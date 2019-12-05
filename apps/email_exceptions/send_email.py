@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
