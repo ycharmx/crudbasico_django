@@ -10,8 +10,25 @@ from django.core.mail import EmailMessage, send_mail
 
 from .models import Empleado    
 from .forms import EmpleadoForm, EmailForm, EliminarEmpleadoForm
+<<<<<<< HEAD
 
 from encrypted_id import decode
+=======
+from apps.email_exceptions.email_connection import EmailConnection
+
+# json_config = LoadConfig('apps_config.json')
+# email_server = EmailConnection()
+# email_server.start_smtp(json_config.get_env_var('email'), json_config.get_env_var('password'))
+
+
+# Formato de uso para el servicio de gmail
+# ----------------------------------------------------------------------------------------------
+# excepcion.enviar_mensaje(
+#     timezone.now(),
+#     'crud.views %s method:get' % (self.template_name),
+#     'Excepcion en la pagina de la aodijasdoij'
+# )
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 
 excepcion = NotificarException()
 
@@ -93,6 +110,10 @@ class RegistrarEmpleadoView(TemplateView):
                         empleado.a_paterno = str.strip(form.cleaned_data['a_paterno'])
                         empleado.fecha_nacimiento = form.cleaned_data['fecha_nacimiento']
                         empleado.fecha_registro = timezone.now()
+<<<<<<< HEAD
+=======
+                        empleado.sexo = True
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                         empleado.save()
                         return HttpResponseRedirect('/empleados')
                     else:
@@ -117,7 +138,11 @@ class EditarEmpleadoView(TemplateView):
         try:
             if 'email' in request.session:
                 email = request.session['email']
+<<<<<<< HEAD
                 empleado = Empleado.objects.get(pk = decode(pk))
+=======
+                empleado = Empleado.objects.get(pk = pk)
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                 form = EmpleadoForm(initial={
                     'nombre' : str.strip(empleado.nombre), 
                     'a_paterno' : str.strip(empleado.a_paterno), 
@@ -143,7 +168,11 @@ class EditarEmpleadoView(TemplateView):
                     form = EmpleadoForm(request.POST)
                     if form.is_valid():
 
+<<<<<<< HEAD
                             empleado = get_object_or_404(Empleado,pk = decode(pk))
+=======
+                            empleado = get_object_or_404(Empleado,pk = pk)
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                             empleado.nombre = str.strip(form.cleaned_data['nombre'])
                             empleado.a_paterno = str.strip(form.cleaned_data['a_paterno'])
                             empleado.a_materno = str.strip(form.cleaned_data['a_materno'])
@@ -177,10 +206,17 @@ class EditarEmpleadoView(TemplateView):
                 return HttpResponseRedirect("/")
            
         except Exception as e:
+<<<<<<< HEAD
             excepcion.enviar_mensaje(
                 'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
                 '%s' % (str(e))
             )
+=======
+            # excepcion.enviar_mensaje(
+            #     'crud.views.EditarEmpleadoView %s method:post' % (self.template_name),
+            #     '%s' % (str(e))
+            # )
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
             raise Http404()
 
 class EliminarEmpleadoView(TemplateView):
@@ -193,7 +229,11 @@ class EliminarEmpleadoView(TemplateView):
                     if form.is_valid():
                         try:
                             pk = form.cleaned_data['pk']
+<<<<<<< HEAD
                             empleado = get_object_or_404(Empleado,pk = decode(pk))
+=======
+                            empleado = get_object_or_404(Empleado,pk = pk)
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                             empleado.delete()
                             return HttpResponseRedirect('/empleados/')
                         except Empleado.DoesNotExist:
@@ -202,10 +242,17 @@ class EliminarEmpleadoView(TemplateView):
                 return HttpResponseRedirect('/')
             
         except Exception as e:
+<<<<<<< HEAD
             excepcion.enviar_mensaje(
                 'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
                 '%s' % (str(e))
             )
+=======
+            # excepcion.enviar_mensaje(
+            #     'crud.views.EliminarEmpleadoView %s method:post' % (self.template_name),
+            #     '%s' % (str(e))
+            # )
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
             raise Http404()
 
 class ReporteEmpleadosPDF(View):
@@ -221,15 +268,20 @@ class ReporteEmpleadosPDF(View):
                     'fecha' : fecha,
                     'empleados': empleados,
                 }
+<<<<<<< HEAD
                 if empleados:                
                     return Render.render('render_pdf/rpt_empleados.html', params)
                 else: 
                     return HttpResponseRedirect("/empleados/")
+=======
+                return Render.render('render_pdf/rpt_empleados.html', params)
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
             else:
                 return HttpResponseRedirect("/")
 
         except Exception as e:
             excepcion.enviar_mensaje(
+<<<<<<< HEAD
                 'crud.views.ReporteEmpleadosView %s method:ge' % (self.template_name),
                 '%s' % (str(e))
             )
@@ -257,6 +309,11 @@ class ReporteEmpleadoPDF(View):
             )
             raise Http404()
 
+=======
+                'crud.views.ReporteEmpleadoView %s method:ge' % (self.template_name),
+                '%s' % (str(e))
+            )
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 
 def salir(request):
     if 'email' in request.session:

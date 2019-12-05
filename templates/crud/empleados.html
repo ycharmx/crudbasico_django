@@ -18,13 +18,20 @@
                     <div class="col-lg-10 col-md-9 col-sm-1">
                         <h2>Empleados</h2>
                 </div>
+<<<<<<< HEAD
                     {% if empleados %}
+=======
+
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                     <div class="col-lg-1 col-md-1 col-sm-1">
                             <a href="{% url 'crud:reporte_empleados' %}" target="_blank" class="float-left my-auto mx-0">
                                 <img src="{% static 'img/reporte.png' %}" style="width:30px;height:30 px;">
                             </a>
                     </div>
+<<<<<<< HEAD
                     {% endif %}
+=======
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 
                     <div class="col-lg-1 col-md-2 col-sm-1" >
                             <a href="{% url 'crud:agregar_empleado' %}" class="float-right btn btn-success btn-sm my-auto mx-0">Agregar</a>
@@ -51,6 +58,7 @@
                               <td>{{ empleado.a_paterno }}</td>
                               <td>{{ empleado.a_materno }}</td>
                               <td>{{ empleado.fecha_nacimiento }}</td>
+<<<<<<< HEAD
                               <td>
                                 <a href="{% url 'crud:reporte_empleado' empleado.ekey %}" target="_blank" class="float-left my-auto mx-0">
                                   <img src="{% static 'img/reporte.png' %}" style="width:25px;height:25 px;">
@@ -60,22 +68,42 @@
                               <td>
                                   <a href="" 
                                       id="{{ empleado.ekey }}" 
+=======
+                              <td><a href="{% url 'crud:editar_empleado' empleado.id %}" class="btn-sm btn-warning">Editar</a></td>
+                              <td>
+                                  <a href="" 
+                                      id="{{ empleado.id }}" 
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                                       class="eliminarempleado btn-sm btn-danger" 
                                       data-toggle="modal" 
                                       data-target="#eliminarempleadoModal"
                                       data-empleado="{{empleado.nombre}} {{empleado.a_paterno}} {{empleado.a_materno}}"
+<<<<<<< HEAD
                                   >Eliminar</a>                                  
                               </td>
                               
+=======
+                                  >Eliminar</a>
+                                  <!-- <button type="button" data-toggle="modal" data-target="#eliminarempleadoModal" class="btn-sm btn-danger">Eliminar</button> -->
+                              </td>
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                           </tr>
                           {% endfor %}
                       
                       </tbody>
               </table> 
                </div>
+<<<<<<< HEAD
         </div>
 
         <div class="modal fade" id="eliminarempleadoModal" tabindex="-1" role="dialog" aria-labelledby="eliminarempleadoModalLabel" aria-hidden="true">
+=======
+
+            
+        </div>
+
+        <div class="modal fade" id="eliminarempleadoModal" empleado-id="" tabindex="-1" role="dialog" aria-labelledby="eliminarempleadoModalLabel" aria-hidden="true">
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -110,6 +138,10 @@
         <script type="text/javascript">
 
          $(document).on('click', '.eliminarempleado', function () {
+<<<<<<< HEAD
+=======
+            $("#eliminarempleadoModal").attr("empleado-id", $(this).attr("id"));
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
             $("#eliminarempleadoModal").find("h6").empty().append($(this).attr("data-empleado"));
             $("#eliminarempleadoModal").find("input.hidden").attr("value", $(this).attr("id"));
         });

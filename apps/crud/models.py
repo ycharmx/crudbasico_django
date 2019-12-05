@@ -1,13 +1,23 @@
 from django.db import models
 from django.urls import reverse
+<<<<<<< HEAD
 from encrypted_id.models import EncryptedIDModel
 
 class Empleado(EncryptedIDModel):
+=======
+
+class Empleado(models.Model):
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
     
     nombre = models.CharField(max_length=50)
     a_materno = models.CharField(max_length=50)
     a_paterno = models.CharField(max_length=50)
+<<<<<<< HEAD
     fecha_nacimiento = models.DateField('Fecha de nacimiento')  
+=======
+    sexo = models.BooleanField()
+    fecha_nacimiento = models.DateField('Fecha de nacimiento')
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
     fecha_registro = models.DateTimeField('Fecha de registro en el servidor')
 
     objects = models.Manager()

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+<<<<<<< HEAD
 
 import os
 
@@ -16,6 +17,13 @@ import os
 from .base import LoadConfig
 configuracion = LoadConfig('apps_config.json')
 
+=======
+from .base import LoadConfig
+import os
+
+
+configuracion = LoadConfig('apps_config.json')
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -48,11 +56,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     
     'bootstrap_datepicker_plus',
     'apps.crud',
     'apps.render_pdf',
     'apps.email_exceptions',
+=======
+    'apps.crud',
+    'apps.render_pdf',
+    'apps.email_exceptions',
+    'bootstrap_datepicker_plus',
+    
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 ]
 
 MIDDLEWARE = [
@@ -86,8 +102,11 @@ TEMPLATES = [
     },
 ]
 
+<<<<<<< HEAD
 ID_ENCRYPT_KEY = 'XUN1Ws76qR0w_9qKcTMRQ6ObR8rhDPgV5beZmmNeZCk='
 
+=======
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
 WSGI_APPLICATION = 'crudbasico.wsgi.application'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets/')
@@ -99,6 +118,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static/bootstrap_datepicker_plus')
 ]
 
+<<<<<<< HEAD
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
@@ -107,6 +127,38 @@ DATABASES = {
         'PASSWORD': configuracion.get_env_var('sqlserver_password'),
         'HOST': configuracion.get_env_var('sqlserver_host'),
         'PORT': '',
+=======
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'crudbasico',
+#         'USER': 'sa',
+#         'PASSWORD': '1940',
+#         'HOST': 'CHAR\SQLSERVER',
+#         'PORT': '',
+
+#         # 'OPTIONS': {
+#         #     'driver' : '{Microsoft ODBC Driver 17 for SQL Server}'
+#         # },
+#     },
+# }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'crudbasico',
+        'USER': 'sa',
+        'PASSWORD': configuracion.get_env_var('sqlserver_password'),
+        'HOST': configuracion.get_env_var('sqlserver_host'),
+        'PORT': '',
+        # 'OPTIONS': {
+        #     'driver' : 'Microsoft ODBC Driver 17 for SQL Server'
+        # },
+>>>>>>> 34c90082494e8267646737dfd0f3fe31ffaec890
     },
 }
 
