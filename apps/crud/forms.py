@@ -58,4 +58,8 @@ class EmpleadoForm(forms.Form):
         )
 
 class EliminarEmpleadoForm(forms.Form):
+<<<<<<< HEAD
     pk = forms.CharField()
+=======
+    pk = forms.CharField()
+>>>>>>> master
